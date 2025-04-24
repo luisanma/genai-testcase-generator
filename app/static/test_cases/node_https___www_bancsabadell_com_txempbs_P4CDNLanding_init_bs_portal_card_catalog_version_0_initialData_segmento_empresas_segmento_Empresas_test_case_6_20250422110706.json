@@ -1,0 +1,18 @@
+{
+  "id": 6,
+  "title": "Cart/Checkout Test for Empresas-",
+  "description": "Verify that the cart/checkout page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas functions correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+    "Verify cart contents are displayed correctly",
+    "Update product quantities",
+    "Proceed to checkout",
+    "Fill in required checkout information"
+  ],
+  "expected_results": [
+    "Cart contents are accurate",
+    "Product quantities can be updated",
+    "Prices and totals are calculated correctly",
+    "Checkout process works correctly"
+  ]
+}

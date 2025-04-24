@@ -1,0 +1,43 @@
+{
+  "id": 7,
+  "title": "Path Navigation Test 1 to Empresas-",
+  "description": "Verify navigation through path 1 to reach Empresas-",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+    "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+    "Find and click the link to 'Abrir tu cuenta online para aut\u00c3\u00b3nomos sin comisiones'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Abrir tu cuenta online para aut\u00c3\u00b3nomos sin comisiones'",
+    "Find and click the link to 'Comercios - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Comercios - Banco Sabadell'",
+    "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+    "Find and click the link to 'TPV - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'TPV - Banco Sabadell'",
+    "Find and click the link to 'Tarjetas - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Tarjetas - Banco Sabadell'",
+    "Find and click the link to 'Cobros y Pagos - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Cobros y Pagos - Banco Sabadell'",
+    "Find and click the link to 'Empresas-'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Empresas-'",
+    "Find and click the link to 'Empresas-'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Empresas-'",
+    "Find and click the link to 'Empresas-'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Empresas-'"
+  ],
+  "expected_results": [
+    "All links in the path are working",
+    "Navigation completes successfully",
+    "Destination page 'Empresas-' loads correctly"
+  ]
+}

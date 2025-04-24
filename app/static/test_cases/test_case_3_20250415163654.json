@@ -1,0 +1,16 @@
+{
+  "id": 3,
+  "title": "Blog Post Navigation Test",
+  "description": "Verify that navigation between blog posts works correctly",
+  "steps": [
+    "Navigate to https://exceltic.com/",
+    "Click on a blog post title",
+    "Verify the post content loads",
+    "Navigate back to the blog list"
+  ],
+  "expected_results": [
+    "Blog post opens correctly",
+    "Post content is displayed",
+    "Navigation back to the list works"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": 3,
+  "title": "Path Navigation Test 1 to Renting Coches - Banco Sabadell",
+  "description": "Verify navigation through path 1 to reach Renting Coches - Banco Sabadell",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+    "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+    "Find and click the link to 'Tarjetas bancarias - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Tarjetas bancarias - Banco Sabadell'",
+    "Find and click the link to 'Hipotecas - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Hipotecas - Banco Sabadell'",
+    "Find and click the link to 'Pr\u00e9stamos y cr\u00e9ditos - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Pr\u00e9stamos y cr\u00e9ditos - Banco Sabadell'",
+    "Find and click the link to 'Ahorro - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Ahorro - Banco Sabadell'",
+    "Find and click the link to 'Inversi\u00f3n - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Inversi\u00f3n - Banco Sabadell'",
+    "Find and click the link to 'Jubilaci\u00f3n - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Jubilaci\u00f3n - Banco Sabadell'",
+    "Find and click the link to 'Seguros - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Seguros - Banco Sabadell'",
+    "Find and click the link to 'Renting Coches - Banco Sabadell'",
+    "Wait for the page to load completely",
+    "Verify the page title contains 'Renting Coches - Banco Sabadell'"
+  ],
+  "expected_results": [
+    "All links in the path are working",
+    "Navigation completes successfully",
+    "Destination page 'Renting Coches - Banco Sabadell' loads correctly"
+  ]
+}

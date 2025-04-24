@@ -1,0 +1,17 @@
+{
+  "id": 3,
+  "title": "Links Test for Empresas-",
+  "description": "Verify that all important links on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas work correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+    "Identify all important navigation links",
+    "Click on each link one by one",
+    "Verify each destination page loads",
+    "Navigate back to the original page after each verification"
+  ],
+  "expected_results": [
+    "All links are clickable",
+    "Destination pages load without errors",
+    "Navigation back to the original page works"
+  ]
+}

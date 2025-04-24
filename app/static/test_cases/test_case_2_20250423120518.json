@@ -1,0 +1,16 @@
+{
+  "id": 2,
+  "title": "Product Search Test",
+  "description": "Verify that the product search functionality works correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/",
+    "Locate the search box",
+    "Enter a common product name (e.g., 'shirt')",
+    "Submit the search"
+  ],
+  "expected_results": [
+    "Search results page loads",
+    "Results related to the search term are displayed",
+    "Number of results is indicated"
+  ]
+}

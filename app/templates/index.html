@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Analysis Framework</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .tab-content {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-tabs .nav-link {
+            font-weight: 500;
+            color: #495057;
+            border: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 12px 20px;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #fff;
+            color: #0d6efd;
+            border-bottom: 3px solid #0d6efd;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: none;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        .spinner-border {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 8px;
+        }
+        #graph-container {
+            height: 650px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f8f9fa;
+        }
+        #graph-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background-color: white;
+        }
+        .iframe-loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            font-size: 1.2rem;
+        }
+        .iframe-loading-overlay .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 1rem;
+        }
+        /* Style the graph container toolbar */
+        .graph-toolbar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 20;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .graph-toolbar button {
+            margin: 0 3px;
+        }
+        /* Category badges for ML results */
+        .category-badge {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            border-radius: 10rem;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            margin-right: 0.3rem;
+        }
+        /* Add tab for node info */
+        .node-info-tab {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            z-index: 5;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        /* Style the overlay for debugging */
+        #graph-debug-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            font-size: 12px;
+            z-index: 5;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .test-case-item {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .test-case-item:hover {
+            background-color: #f8f9fa;
+        }
+        .modal-content {
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow: auto;
+            max-height: 400px;
+        }
+        .step-container {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        #page-preview-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #page-preview-frame {
+            transform: scale(0.8);
+            transform-origin: 0 0;
+            width: 125%; /* 1 / 0.8 = 125% */
+            height: 125%;
+        }
+        
+        .node-tooltip {
+            position: fixed;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 mb-5">
+        <h1 class="text-center mb-4">Web Analysis Framework</h1>
+        
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="analyze-tab" data-bs-toggle="tab" data-bs-target="#analyze" type="button" role="tab" aria-controls="analyze" aria-selected="true">
+                    <i class="fas fa-globe me-2"></i> Analyze Website
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="testcases-tab" data-bs-toggle="tab" data-bs-target="#testcases" type="button" role="tab" aria-controls="testcases" aria-selected="false">
+                    <i class="fas fa-tasks me-2"></i> Test Cases
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="code-tab" data-bs-toggle="tab" data-bs-target="#code" type="button" role="tab" aria-controls="code" aria-selected="false">
+                    <i class="fas fa-code me-2"></i> Generated Code
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="myTabContent">
+            <!-- Analyze Website Tab -->
+            <div class="tab-pane fade show active" id="analyze" role="tabpanel" aria-labelledby="analyze-tab">
+                <div class="card">
+                    <div class="card-header">Enter Website URL to Analyze</div>
+                    <div class="card-body">
+                        <form id="analyze-form">
+                            <div class="mb-3">
+                                <label for="website-url" class="form-label">Website URL</label>
+                                <input type="url" class="form-control" id="website-url" placeholder="https://example.com" required>
+                                <div class="form-text">Enter the full URL including http:// or https://</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="analyze-button">
+                                <span class="spinner-border spinner-border-sm d-none" id="analyze-spinner"></span>
+                                Analyze Website
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div id="analysis-results" class="mt-4 d-none">
+                    <div class="card">
+                        <div class="card-header">Analysis Results</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Website Information</h5>
+                                    <ul class="list-group list-group-flush mb-3">
+                                        <li class="list-group-item"><strong>URL:</strong> <span id="result-url"></span></li>
+                                        <li class="list-group-item"><strong>Domain:</strong> <span id="result-domain"></span></li>
+                                        <li class="list-group-item"><strong>Category:</strong> <span id="result-category"></span></li>
+                                        <li class="list-group-item"><strong>Pages analyzed:</strong> <span id="result-pages"></span></li>
+                                        <li class="list-group-item"><strong>Connections:</strong> <span id="result-edges"></span></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Actions</h5>
+                                    <p>You can proceed to generate test cases based on this analysis.</p>
+                                    <button class="btn btn-primary" id="goto-testcases">
+                                        Next: Generate Test Cases <i class="fas fa-arrow-right ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">Website Structure Graph</div>
+                        <div class="card-body">
+                            <div id="graph-container">
+                                <div class="iframe-loading-overlay">
+                                    <div>Loading graph...</div>
+                                </div>
+                                <iframe id="graph-iframe" src="about:blank" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add debug message below the graph -->
+                    <div class="card mt-3">
+                        <div class="card-header">Debugging Information</div>
+                        <div class="card-body">
+                            <div id="graph-debug">
+                                <p>Graph loading status: <span id="graph-status">Not loaded yet</span></p>
+                                <button class="btn btn-sm btn-outline-primary" id="reload-graph">Reload Graph</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Test Cases Tab -->
+            <div class="tab-pane fade" id="testcases" role="tabpanel" aria-labelledby="testcases-tab">
+                <div class="card">
+                    <div class="card-header">Generate Test Cases</div>
+                    <div class="card-body">
+                        <p>Generate test cases based on the website analysis.</p>
+                        <button class="btn btn-primary" id="generate-testcases">
+                            <span class="spinner-border spinner-border-sm d-none" id="testcases-spinner"></span>
+                            Generate Test Cases
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="testcases-results" class="mt-4 d-none">
+                    <div class="card">
+                        <div class="card-header">Generated Test Cases</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>The following test cases were generated based on the website analysis. Click on a test case to see details.</p>
+                                    <ul class="list-group" id="testcases-list"></ul>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-primary" id="goto-code">
+                                    Next: Generate Code <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Test Case Modal -->
+                <div class="modal fade" id="testCaseModal" tabindex="-1" aria-labelledby="testCaseModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="testCaseModalLabel">Test Case Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Description</h6>
+                                <p id="modal-description"></p>
+                                
+                                <h6>Steps</h6>
+                                <div id="modal-steps"></div>
+                                
+                                <h6>Expected Results</h6>
+                                <div id="modal-expected"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Generated Code Tab -->
+            <div class="tab-pane fade" id="code" role="tabpanel" aria-labelledby="code-tab">
+                <div class="card">
+                    <div class="card-header">Generate Selenium Test with Ollama</div>
+                    <div class="card-body">
+                        <p>Select a test case to generate and execute Selenium Python code using Llama 3.1:</p>
+                        <select class="form-select mb-3" id="testcase-select">
+                            <option value="" selected disabled>Select a test case</option>
+                        </select>
+                        <button class="btn btn-primary" id="generate-code">
+                            <span class="spinner-border spinner-border-sm d-none" id="code-spinner"></span>
+                            Generate Code with Ollama
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="code-results" class="mt-4 d-none">
+                    <div class="card">
+                        <div class="card-header">Generated Python Code</div>
+                        <div class="card-body">
+                            <p>Below is the generated Selenium Python code for the selected test case:</p>
+                            <pre class="code-block"><code id="code-content"></code></pre>
+                            <div class="mt-3">
+                                <div class="mb-3">
+                                    <label for="chromedriver-path" class="form-label">Ruta de ChromeDriver.exe (opcional):</label>
+                                    <input type="text" class="form-control" id="chromedriver-path" placeholder="Ej: C:\WebDrivers\chromedriver.exe">
+                                    <div class="form-text">Deja vacío para usar ChromeDriver desde el PATH del sistema.</div>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="execute-visible" checked>
+                                    <label class="form-check-label" for="execute-visible">
+                                        Ejecutar en modo visible (mostrando navegador)
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary" id="execute-code">
+                                    <i class="fas fa-play me-2"></i> Execute Test
+                                </button>
+                                <button class="btn btn-secondary" id="download-code">
+                                    <i class="fas fa-download me-2"></i> Download Python File
+                                </button>
+                                <button class="btn btn-secondary ms-2" id="copy-code">
+                                    <i class="fas fa-copy me-2"></i> Copy to Clipboard
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="execution-results" class="mt-4 d-none">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Test Execution Progress</span>
+                                <span id="execution-status" class="badge bg-primary">Running</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="progress mb-3">
+                                    <div id="execution-progress" class="progress-bar progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                
+                                <h6>Execution Logs:</h6>
+                                <div id="execution-logs" class="p-3 bg-light" style="max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 0.8rem;">
+                                    <div class="log-entry">Initializing test execution...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add a section to display node info -->
+            <div id="node-info" class="mt-4 d-none">
+                <div class="card">
+                    <div class="card-header">Selected Page Information</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Page Details</h5>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item"><strong>Title:</strong> <span id="node-title"></span></li>
+                                    <li class="list-group-item"><strong>URL:</strong> <span id="node-url"></span></li>
+                                    <li class="list-group-item"><strong>Path:</strong> <span id="node-path"></span></li>
+                                </ul>
+                                <p>You can generate test cases specific to this page.</p>
+                                <button class="btn btn-success" id="generate-node-tests">
+                                    <span class="spinner-border spinner-border-sm d-none" id="node-tests-spinner"></span>
+                                    Generate Tests for This Page
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add page preview element after the graph container -->
+            <div id="page-preview-container" class="mt-3 d-none">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Page Preview: <span id="preview-title">No page selected</span></span>
+                        <button type="button" class="btn-close" aria-label="Close" id="close-preview"></button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div id="page-preview-wrapper" style="height: 400px; overflow: hidden; position: relative;">
+                            <iframe id="page-preview-frame" src="about:blank" style="width: 100%; height: 400px; border: none; transform: scale(0.8); transform-origin: 0 0;"></iframe>
+                            <div id="preview-loading" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                            <div id="preview-overlay" class="position-absolute top-0 start-0 w-100 h-100 d-none" style="background: rgba(0,0,0,0.05); z-index: 10;"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <button class="btn btn-sm btn-primary" id="navigate-to-page">Navigate to Page</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="generate-page-tests">Generate Tests for This Page</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store data globally
+            let analysisData = null;
+            let testCasesData = null;
+            let currentUrl = '';
+            
+            // Store selected node data
+            let selectedNode = null;
+            
+            // Variables to store preview state
+            let currentPreviewUrl = null;
+            let previewTimeoutId = null;
+            
+            // Form submission for website analysis
+            document.getElementById('analyze-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const urlInput = document.getElementById('website-url');
+                currentUrl = urlInput.value;
+                
+                if (!currentUrl) {
+                    alert('Please enter a valid URL');
+                    return;
+                }
+                
+                // Show spinner
+                const spinner = document.getElementById('analyze-spinner');
+                const analyzeBtn = document.getElementById('analyze-button');
+                spinner.classList.remove('d-none');
+                analyzeBtn.disabled = true;
+                
+                // Make API call to analyze website
+                fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: currentUrl })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Store analysis data
+                    analysisData = data;
+                    
+                    // Update UI with results
+                    document.getElementById('result-url').textContent = data.url;
+                    document.getElementById('result-domain').textContent = data.domain;
+                    document.getElementById('result-category').textContent = data.category;
+                    document.getElementById('result-pages').textContent = data.node_count;
+                    document.getElementById('result-edges').textContent = data.edge_count;
+                    
+                    // Load graph visualization
+                    initGraphIframe();
+                    
+                    // Show results section
+                    document.getElementById('analysis-results').classList.remove('d-none');
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    analyzeBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error analyzing website: ' + error.message);
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    analyzeBtn.disabled = false;
+                });
+            });
+            
+            // Button to go to test cases tab
+            document.getElementById('goto-testcases').addEventListener('click', function() {
+                document.getElementById('testcases-tab').click();
+            });
+            
+            // Button to generate test cases
+            document.getElementById('generate-testcases').addEventListener('click', function() {
+                if (!currentUrl) {
+                    alert('Please analyze a website first');
+                    document.getElementById('analyze-tab').click();
+                    return;
+                }
+                
+                // Show spinner
+                const spinner = document.getElementById('testcases-spinner');
+                const testcasesBtn = document.getElementById('generate-testcases');
+                spinner.classList.remove('d-none');
+                testcasesBtn.disabled = true;
+                
+                // Make API call to generate test cases
+                fetch('/api/generate-tests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ url: currentUrl })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Store test cases data
+                    testCasesData = data;
+                    
+                    // Clear existing test cases
+                    const testcasesList = document.getElementById('testcases-list');
+                    testcasesList.innerHTML = '';
+                    
+                    // Clear test case select dropdown
+                    const testcaseSelect = document.getElementById('testcase-select');
+                    testcaseSelect.innerHTML = '<option value="" selected disabled>Select a test case</option>';
+                    
+                    // Add test cases to the list
+                    data.forEach(tc => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item test-case-item';
+                        li.dataset.id = tc.id;
+                        li.innerHTML = `<strong>${tc.title}</strong> <i class="fas fa-info-circle ms-2"></i>`;
+                        li.addEventListener('click', function() {
+                            // Show modal with test case details
+                            showTestCaseModal(tc);
+                        });
+                        testcasesList.appendChild(li);
+                        
+                        // Add to select dropdown
+                        const option = document.createElement('option');
+                        option.value = tc.id;
+                        option.textContent = tc.title;
+                        testcaseSelect.appendChild(option);
+                    });
+                    
+                    // Show results section
+                    document.getElementById('testcases-results').classList.remove('d-none');
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    testcasesBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error generating test cases: ' + error.message);
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    testcasesBtn.disabled = false;
+                });
+            });
+            
+            // Button to go to code tab
+            document.getElementById('goto-code').addEventListener('click', function() {
+                document.getElementById('code-tab').click();
+            });
+            
+            // Button to generate code with Ollama
+            document.getElementById('generate-code').addEventListener('click', function() {
+                const selectedTestCaseId = document.getElementById('testcase-select').value;
+                
+                if (!selectedTestCaseId) {
+                    alert('Please select a test case');
+                    return;
+                }
+                
+                if (!currentUrl) {
+                    alert('Please analyze a website first');
+                    document.getElementById('analyze-tab').click();
+                    return;
+                }
+                
+                // Show spinner
+                const spinner = document.getElementById('code-spinner');
+                const codeBtn = document.getElementById('generate-code');
+                spinner.classList.remove('d-none');
+                codeBtn.disabled = true;
+                
+                // Make API call to generate code using Ollama
+                fetch(`/api/generate-code/${selectedTestCaseId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        url: currentUrl,
+                        node_url: selectedNode ? selectedNode.nodeUrl : null
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Store the generated code data for execution
+                    window.generatedCodeData = data;
+                    
+                    // Display the generated code
+                    document.getElementById('code-content').textContent = data.code;
+                    
+                    // Show results section
+                    document.getElementById('code-results').classList.remove('d-none');
+                    
+                    // Hide execution results if showing
+                    document.getElementById('execution-results').classList.add('d-none');
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    codeBtn.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error generating code: ' + error.message);
+                    
+                    // Hide spinner
+                    spinner.classList.add('d-none');
+                    codeBtn.disabled = false;
+                });
+            });
+            
+            // Button to execute generated code
+            document.getElementById('execute-code').addEventListener('click', function() {
+                if (!window.generatedCodeData) {
+                    alert('Please generate code first');
+                    return;
+                }
+                
+                // Show execution results section
+                const executionResults = document.getElementById('execution-results');
+                executionResults.classList.remove('d-none');
+                
+                // Reset execution logs
+                document.getElementById('execution-logs').innerHTML = '<div class="log-entry">Initializing test execution...</div>';
+                
+                // Reset progress and status
+                const progressBar = document.getElementById('execution-progress');
+                progressBar.style.width = '0%';
+                progressBar.setAttribute('aria-valuenow', '0');
+                
+                const statusBadge = document.getElementById('execution-status');
+                statusBadge.textContent = 'Running';
+                statusBadge.className = 'badge bg-primary';
+                
+                // Make API call to execute code
+                fetch('/api/execute-test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        code: window.generatedCodeData.code,
+                        test_case_id: window.generatedCodeData.test_case_id,
+                        chrome_driver_path: document.getElementById('chromedriver-path').value.trim(),
+                        execute: document.getElementById('execute-visible').checked
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Test execution initiated:', data);
+                    
+                    // Store test ID
+                    window.currentTestId = data.test_id;
+                    
+                    // Add log entry
+                    addLogEntry('Test execution started', 'log');
+                    
+                    // Display additional info if provided
+                    if (data.view_instructions) {
+                        addLogEntry(data.view_instructions, 'info');
+                    }
+                    
+                    if (data.execution && data.execution.pid) {
+                        addLogEntry(`Test process started with PID: ${data.execution.pid}`, 'info');
+                    }
+                    
+                    // Start polling for status
+                    startStatusPolling(data.test_id);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addLogEntry('Error starting test: ' + error.message, 'error');
+                    updateExecutionStatus('failed');
+                });
+            });
+            
+            // Function to show test case modal
+            function showTestCaseModal(testCase) {
+                const modal = new bootstrap.Modal(document.getElementById('testCaseModal'));
+                
+                // Set modal title
+                document.getElementById('testCaseModalLabel').textContent = testCase.title;
+                
+                // Set description
+                document.getElementById('modal-description').textContent = testCase.description;
+                
+                // Set steps
+                const stepsContainer = document.getElementById('modal-steps');
+                stepsContainer.innerHTML = '';
+                testCase.steps.forEach((step, index) => {
+                    const stepDiv = document.createElement('div');
+                    stepDiv.className = 'step-container';
+                    stepDiv.innerHTML = `<strong>${index + 1}.</strong> ${step}`;
+                    stepsContainer.appendChild(stepDiv);
+                });
+                
+                // Set expected results
+                const expectedContainer = document.getElementById('modal-expected');
+                expectedContainer.innerHTML = '';
+                testCase.expected_results.forEach((result, index) => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'step-container';
+                    resultDiv.innerHTML = `<strong>${index + 1}.</strong> ${result}`;
+                    expectedContainer.appendChild(resultDiv);
+                });
+                
+                // Show modal
+                modal.show();
+            }
+            
+            // Copy code button
+            document.getElementById('copy-code').addEventListener('click', function() {
+                const codeContent = document.getElementById('code-content').textContent;
+                navigator.clipboard.writeText(codeContent)
+                    .then(() => {
+                        alert('Code copied to clipboard!');
+                    })
+                    .catch(err => {
+                        console.error('Error copying text: ', err);
+                        alert('Failed to copy code');
+                    });
+            });
+            
+            // Download code button
+            document.getElementById('download-code').addEventListener('click', function() {
+                const codeContent = document.getElementById('code-content').textContent;
+                const selectedTestCaseId = document.getElementById('testcase-select').value;
+                const testCase = testCasesData.find(tc => tc.id == selectedTestCaseId);
+                
+                if (!testCase) {
+                    alert('Test case not found');
+                    return;
+                }
+                
+                const filename = `test_${testCase.title.toLowerCase().replace(/\s+/g, '_')}.py`;
+                
+                const blob = new Blob([codeContent], { type: 'text/x-python' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+
+            // Add a function to reload the graph
+            document.getElementById('reload-graph').addEventListener('click', function() {
+                initGraphIframe();
+            });
+
+            // Listen for iframe messages directly
+            window.addEventListener('message', function(event) {
+                console.log('Received message from iframe:', event.data);
+                
+                if (event.data && event.data.type) {
+                    switch(event.data.type) {
+                        case 'nodeClick':
+                            // Store the selected node information for later use
+                            window.selectedNode = {
+                                id: event.data.nodeId,
+                                name: event.data.nodeName,
+                                url: event.data.nodeUrl,
+                                paths: event.data.paths
+                            };
+                            
+                            // Update the UI to show the selected node
+                            document.getElementById('selected-node-badge').classList.remove('d-none');
+                            document.getElementById('selected-node-name').textContent = event.data.nodeName || 'Unknown';
+                            document.getElementById('selected-node-url').textContent = event.data.nodeUrl || 'Unknown URL';
+                            
+                            // Show the button for test case generation
+                            document.getElementById('generate-tests-btn').classList.remove('d-none');
+                            
+                            // Fetch page info from the website structure
+                            fetch('/api/get-website-structure', {
+                                method: 'GET'
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("Retrieved website structure:", data);
+                                // Update node details if this page exists in the structure
+                                if (data.pages && data.pages.includes(event.data.nodeUrl)) {
+                                    const pageContent = data.page_content[event.data.nodeUrl];
+                                    if (pageContent) {
+                                        let detailsHtml = `<h6 class="mt-3">Page Details</h6>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item"><strong>Title:</strong> ${pageContent.title || 'N/A'}</li>
+                                                <li class="list-group-item"><strong>Links:</strong> ${pageContent.links ? pageContent.links.length : 0}</li>
+                                                <li class="list-group-item"><strong>Forms:</strong> ${pageContent.forms || 0}</li>
+                                                <li class="list-group-item"><strong>Images:</strong> ${pageContent.images || 0}</li>
+                                            </ul>`;
+                                            
+                                            // Add path information
+                                            if (event.data.paths && event.data.paths.length > 0) {
+                                                detailsHtml += `<h6 class="mt-3">Paths to this Node</h6>
+                                                <div class="path-info small">`;
+                                                
+                                                event.data.paths.forEach((path, index) => {
+                                                    detailsHtml += `<div><strong>Path ${index + 1}:</strong> `;
+                                                    path.forEach((nodeUrl, i) => {
+                                                        // Try to get page title if available
+                                                        let nodeTitle = 'Unknown';
+                                                        if (data.page_content && data.page_content[nodeUrl] && data.page_content[nodeUrl].title) {
+                                                            nodeTitle = data.page_content[nodeUrl].title;
+                                                        }
+                                                        
+                                                        detailsHtml += `<span class="badge bg-${i === 0 ? 'success' : (i === path.length - 1 ? 'danger' : 'warning')} me-1" 
+                                                            title="${nodeUrl}">${nodeTitle}</span>`;
+                                                        
+                                                        if (i < path.length - 1) {
+                                                            detailsHtml += ` → `;
+                                                        }
+                                                    });
+                                                    detailsHtml += `</div>`;
+                                                });
+                                                
+                                                detailsHtml += `</div>`;
+                                            }
+                                            
+                                            document.getElementById('node-details').innerHTML = detailsHtml;
+                                        }
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error fetching website structure:", error);
+                                });
+                            break;
+                        
+                        case 'nodeHover':
+                            // Delay preview slightly to avoid flickering
+                            if (previewTimeoutId) {
+                                clearTimeout(previewTimeoutId);
+                            }
+                            
+                            previewTimeoutId = setTimeout(function() {
+                                showPagePreview(event.data.nodeUrl, event.data.nodeName);
+                            }, 500); // 500ms delay before showing preview
+                            break;
+                            
+                        case 'nodeHoverEnd':
+                            // Cancel preview if mouse leaves node quickly
+                            if (previewTimeoutId) {
+                                clearTimeout(previewTimeoutId);
+                                previewTimeoutId = null;
+                            }
+                            break;
+                        
+                        case 'error':
+                            console.error("Error from graph:", event.data.message);
+                            // Update UI to show the error
+                            const graphStatus = document.getElementById('graph-status');
+                            if (graphStatus) {
+                                graphStatus.textContent = `Error: ${event.data.message}`;
+                                graphStatus.classList.add('text-danger');
+                            }
+                            break;
+                            
+                        default:
+                            console.log("Unknown message type:", event.data.type);
+                    }
+                }
+            });
+
+            // Event listener for generating test cases for a selected node
+            document.getElementById('generate-tests-btn').addEventListener('click', function() {
+                if (!window.selectedNode) {
+                    alert("Please select a node in the graph first.");
+                    return;
+                }
+                
+                showLoadingIndicator();
+                
+                // Use the currently analyzed website URL and the selected node
+                const analysisUrl = document.getElementById('result-url').textContent;
+                
+                fetch('/api/generate-tests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: analysisUrl,
+                        node_url: window.selectedNode.url
+                    })
+                })
+                .then(response => {
+                    hideLoadingIndicator();
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayTestCases(data);
+                    document.getElementById('testcases-tab').click();
+                })
+                .catch(error => {
+                    hideLoadingIndicator();
+                    console.error('Error generating test cases:', error);
+                    alert('Failed to generate test cases. Please try again.');
+                });
+            });
+
+            // Add a function to initialize the graph iframe
+            function initGraphIframe() {
+                const iframe = document.getElementById('graph-iframe');
+                const loadingOverlay = document.querySelector('.iframe-loading-overlay');
+                const statusSpan = document.getElementById('graph-status');
+                
+                // Show loading overlay
+                if (loadingOverlay) loadingOverlay.style.display = 'flex';
+                
+                // Update status
+                statusSpan.textContent = 'Loading graph...';
+                
+                // Add timestamp to prevent caching
+                iframe.src = '/graph?t=' + new Date().getTime();
+                
+                // Handle iframe load event
+                iframe.onload = function() {
+                    console.log('Graph iframe loaded');
+                    statusSpan.textContent = 'Graph iframe loaded, waiting for visualization...';
+                    
+                    // Hide loading overlay after a short delay to allow graph to render
+                    setTimeout(function() {
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                        statusSpan.textContent = 'Graph visualization loaded';
+                    }, 1500);
+                };
+                
+                // Handle iframe error event
+                iframe.onerror = function(error) {
+                    console.error('Error loading graph iframe:', error);
+                    statusSpan.textContent = 'Error loading graph iframe';
+                    
+                    // Show error in overlay
+                    if (loadingOverlay) {
+                        loadingOverlay.innerHTML = '<div class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Error loading graph</div>';
+                    }
+                };
+            }
+
+            // Function to show page preview
+            function showPagePreview(url, title) {
+                // Cancel previous preview timeout if exists
+                if (previewTimeoutId) {
+                    clearTimeout(previewTimeoutId);
+                }
+                
+                // Check if URL is different from current
+                if (url === currentPreviewUrl) {
+                    return;
+                }
+                
+                currentPreviewUrl = url;
+                
+                // Update title and show container
+                document.getElementById('preview-title').textContent = title || url;
+                document.getElementById('page-preview-container').classList.remove('d-none');
+                
+                // Show loading indicator
+                document.getElementById('preview-loading').classList.remove('d-none');
+                
+                // Set iframe source with proxy if needed
+                const previewFrame = document.getElementById('page-preview-frame');
+                
+                // We could use a proxy service for external sites, but for safety and demo purposes,
+                // we'll just load it directly with a warning about potential navigation away
+                previewFrame.src = url;
+                
+                // Set up event handlers for iframe
+                previewFrame.onload = function() {
+                    document.getElementById('preview-loading').classList.add('d-none');
+                };
+                
+                previewFrame.onerror = function() {
+                    document.getElementById('preview-loading').classList.add('d-none');
+                    document.getElementById('preview-title').textContent = 'Error loading page: ' + url;
+                };
+                
+                // Update navigation button
+                document.getElementById('navigate-to-page').onclick = function() {
+                    if (confirm('Navigate to page: ' + url + '?')) {
+                        window.open(url, '_blank');
+                    }
+                };
+                
+                // Update tests button
+                document.getElementById('generate-page-tests').onclick = function() {
+                    if (!selectedNode) {
+                        selectedNode = {
+                            nodeUrl: url,
+                            nodeName: title || url.split('/').pop()
+                        };
+                    }
+                    
+                    // Switch to test cases tab and generate tests for this page
+                    document.getElementById('generate-node-tests').click();
+                };
+            }
+
+            // Handle closing the preview
+            document.getElementById('close-preview').addEventListener('click', function() {
+                document.getElementById('page-preview-container').classList.add('d-none');
+                currentPreviewUrl = null;
+                document.getElementById('page-preview-frame').src = 'about:blank';
+            });
+
+            // Function to poll test execution status
+            function startStatusPolling(testId) {
+                // Keep track of interval ID
+                if (window.statusPollingInterval) {
+                    clearInterval(window.statusPollingInterval);
+                }
+                
+                // Poll every 1 second
+                window.statusPollingInterval = setInterval(function() {
+                    // Make API call to get status
+                    fetch(`/api/test-status/${testId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Update progress bar
+                        const progressBar = document.getElementById('execution-progress');
+                        progressBar.style.width = data.completion + '%';
+                        progressBar.setAttribute('aria-valuenow', data.completion);
+                        
+                        // Add any new logs
+                        if (data.logs && data.logs.length > 0) {
+                            data.logs.forEach(log => {
+                                addLogEntry(log.message, log.type);
+                            });
+                        }
+                        
+                        // Update status if completed or failed
+                        if (data.status !== 'running') {
+                            updateExecutionStatus(data.status);
+                            
+                            // Stop polling if test is complete
+                            clearInterval(window.statusPollingInterval);
+                            window.statusPollingInterval = null;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error polling status:', error);
+                        addLogEntry('Error polling status: ' + error.message, 'error');
+                        
+                        // Stop polling on error
+                        clearInterval(window.statusPollingInterval);
+                        window.statusPollingInterval = null;
+                    });
+                }, 1000);
+            }
+            
+            // Function to add a log entry
+            function addLogEntry(message, type) {
+                const logsContainer = document.getElementById('execution-logs');
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                // Style based on type
+                if (type === 'error') {
+                    logEntry.classList.add('text-danger');
+                    logEntry.innerHTML = `<i class="fas fa-times-circle me-2"></i>${message}`;
+                } else if (type === 'status') {
+                    logEntry.classList.add('text-success');
+                    logEntry.innerHTML = `<i class="fas fa-check-circle me-2"></i>${message}`;
+                } else {
+                    logEntry.innerHTML = `<i class="fas fa-info-circle me-2"></i>${message}`;
+                }
+                
+                logsContainer.appendChild(logEntry);
+                
+                // Auto-scroll to bottom
+                logsContainer.scrollTop = logsContainer.scrollHeight;
+            }
+            
+            // Function to update execution status
+            function updateExecutionStatus(status) {
+                const statusBadge = document.getElementById('execution-status');
+                const progressBar = document.getElementById('execution-progress');
+                
+                if (status === 'completed') {
+                    statusBadge.textContent = 'Completed';
+                    statusBadge.className = 'badge bg-success';
+                    progressBar.classList.remove('progress-bar-animated');
+                    progressBar.classList.add('bg-success');
+                } else if (status === 'failed') {
+                    statusBadge.textContent = 'Failed';
+                    statusBadge.className = 'badge bg-danger';
+                    progressBar.classList.remove('progress-bar-animated');
+                    progressBar.classList.add('bg-danger');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,16 @@
+{
+  "id": 8,
+  "title": "Outbound Links Test for Empresas-",
+  "description": "Verify all outbound links from Empresas- work correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+    "Identify all outbound links",
+    "Click on each link and verify it loads",
+    "Return to the original page after testing each link"
+  ],
+  "expected_results": [
+    "All outbound links are clickable",
+    "Destination pages load without errors",
+    "Navigation back to the original page works"
+  ]
+}

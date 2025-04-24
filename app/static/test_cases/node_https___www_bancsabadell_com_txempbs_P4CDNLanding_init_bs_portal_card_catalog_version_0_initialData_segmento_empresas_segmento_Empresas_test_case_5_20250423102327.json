@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "title": "Button Functionality Test for Empresas-",
+  "description": "Verify that buttons on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas function correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+    "Identify all actionable buttons",
+    "Click each button one by one",
+    "Observe the response to each button click"
+  ],
+  "expected_results": [
+    "All buttons are clickable",
+    "Each button triggers the expected action",
+    "UI responds appropriately to button interactions",
+    "No errors occur during button operations"
+  ]
+}

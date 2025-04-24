@@ -1,0 +1,16 @@
+{
+  "id": 4,
+  "title": "Add Product to Cart Test",
+  "description": "Verify that adding a product to the shopping cart works correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+    "Browse to a product page",
+    "Click the 'Add to Cart' button",
+    "Navigate to the shopping cart"
+  ],
+  "expected_results": [
+    "Product is added to the cart",
+    "Cart count is updated",
+    "Product appears correctly in the cart with the right quantity and price"
+  ]
+}

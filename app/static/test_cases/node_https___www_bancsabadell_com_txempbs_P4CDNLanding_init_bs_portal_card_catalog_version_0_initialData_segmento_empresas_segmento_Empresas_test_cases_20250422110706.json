@@ -1,0 +1,181 @@
+[
+  {
+    "id": 1,
+    "title": "Accessibility Test for Empresas-",
+    "description": "Verify that the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas is accessible and loads correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Abrir tu cuenta online para aut\u00c3\u00b3nomos sin comisiones'",
+      "Wait for the page to load",
+      "Find and click the link to 'Comercios - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'TPV - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Tarjetas - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Cobros y Pagos - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load completely"
+    ],
+    "expected_results": [
+      "Page loads without errors",
+      "All elements are visible and properly rendered",
+      "Page title contains 'Empresas-'"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Form Submission Test for Empresas-",
+    "description": "Verify that forms on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas can be submitted correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Identify the form on the page",
+      "Fill in all required fields with valid test data",
+      "Submit the form"
+    ],
+    "expected_results": [
+      "Form accepts the input data",
+      "Form validation works correctly",
+      "Form submission is successful",
+      "Appropriate confirmation or next step is displayed"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Links Test for Empresas-",
+    "description": "Verify that all important links on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas work correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Identify all important navigation links",
+      "Click on each link one by one",
+      "Verify each destination page loads",
+      "Navigate back to the original page after each verification"
+    ],
+    "expected_results": [
+      "All links are clickable",
+      "Destination pages load without errors",
+      "Navigation back to the original page works"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Input Validation Test for Empresas-",
+    "description": "Verify that input fields on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas validate correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Identify all input fields",
+      "Test each input field with valid data",
+      "Test each input field with invalid data",
+      "Observe validation behavior"
+    ],
+    "expected_results": [
+      "Input fields accept valid data",
+      "Input fields reject invalid data",
+      "Validation errors are displayed appropriately",
+      "Error messages are clear and descriptive"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Button Functionality Test for Empresas-",
+    "description": "Verify that buttons on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas function correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Identify all actionable buttons",
+      "Click each button one by one",
+      "Observe the response to each button click"
+    ],
+    "expected_results": [
+      "All buttons are clickable",
+      "Each button triggers the expected action",
+      "UI responds appropriately to button interactions",
+      "No errors occur during button operations"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Cart/Checkout Test for Empresas-",
+    "description": "Verify that the cart/checkout page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas functions correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Verify cart contents are displayed correctly",
+      "Update product quantities",
+      "Proceed to checkout",
+      "Fill in required checkout information"
+    ],
+    "expected_results": [
+      "Cart contents are accurate",
+      "Product quantities can be updated",
+      "Prices and totals are calculated correctly",
+      "Checkout process works correctly"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Path Navigation Test 1 to Empresas-",
+    "description": "Verify navigation through path 1 to reach Empresas-",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+      "Find and click the link to 'Abrir tu cuenta online para aut\u00c3\u00b3nomos sin comisiones'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Abrir tu cuenta online para aut\u00c3\u00b3nomos sin comisiones'",
+      "Find and click the link to 'Comercios - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Comercios - Banco Sabadell'",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+      "Find and click the link to 'TPV - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'TPV - Banco Sabadell'",
+      "Find and click the link to 'Tarjetas - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Tarjetas - Banco Sabadell'",
+      "Find and click the link to 'Cobros y Pagos - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Cobros y Pagos - Banco Sabadell'",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Empresas-'",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Empresas-'",
+      "Find and click the link to 'Empresas-'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Empresas-'"
+    ],
+    "expected_results": [
+      "All links in the path are working",
+      "Navigation completes successfully",
+      "Destination page 'Empresas-' loads correctly"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Outbound Links Test for Empresas-",
+    "description": "Verify all outbound links from Empresas- work correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+      "Identify all outbound links",
+      "Click on each link and verify it loads",
+      "Return to the original page after testing each link"
+    ],
+    "expected_results": [
+      "All outbound links are clickable",
+      "Destination pages load without errors",
+      "Navigation back to the original page works"
+    ]
+  }
+]

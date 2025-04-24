@@ -1,0 +1,18 @@
+{
+  "id": 4,
+  "title": "Input Validation Test for Empresas-",
+  "description": "Verify that input fields on the page at https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas validate correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/txempbs/P4CDNLanding.init.bs?portal=card-catalog&version=0&initialData.segmento=empresas&segmento=Empresas",
+    "Identify all input fields",
+    "Test each input field with valid data",
+    "Test each input field with invalid data",
+    "Observe validation behavior"
+  ],
+  "expected_results": [
+    "Input fields accept valid data",
+    "Input fields reject invalid data",
+    "Validation errors are displayed appropriately",
+    "Error messages are clear and descriptive"
+  ]
+}

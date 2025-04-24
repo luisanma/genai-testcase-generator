@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "title": "Homepage Accessibility Test",
+  "description": "Verify that the homepage at https://exceltic.com/ is accessible and loads correctly",
+  "steps": [
+    "Navigate to https://exceltic.com/",
+    "Wait for the page to load completely"
+  ],
+  "expected_results": [
+    "Page loads without errors",
+    "All elements are visible and properly rendered"
+  ]
+}

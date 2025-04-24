@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "Accessibility Test for Renting Coches - Banco Sabadell",
+    "description": "Verify that the page at https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/ is accessible and loads correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Tarjetas bancarias - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Hipotecas - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Pr\u00e9stamos y cr\u00e9ditos - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Ahorro - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Inversi\u00f3n - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Jubilaci\u00f3n - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Seguros - Banco Sabadell'",
+      "Wait for the page to load",
+      "Find and click the link to 'Renting Coches - Banco Sabadell'",
+      "Wait for the page to load completely"
+    ],
+    "expected_results": [
+      "Page loads without errors",
+      "All elements are visible and properly rendered",
+      "Page title contains 'Renting Coches - Banco Sabadell'"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Links Test for Renting Coches - Banco Sabadell",
+    "description": "Verify that all important links on the page at https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/ work correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/",
+      "Identify all important navigation links",
+      "Click on each link one by one",
+      "Verify each destination page loads",
+      "Navigate back to the original page after each verification"
+    ],
+    "expected_results": [
+      "All links are clickable",
+      "Destination pages load without errors",
+      "Navigation back to the original page works"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Path Navigation Test 1 to Renting Coches - Banco Sabadell",
+    "description": "Verify navigation through path 1 to reach Renting Coches - Banco Sabadell",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+      "Find and click the link to 'Cuentas bancarias - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Cuentas bancarias - Banco Sabadell'",
+      "Find and click the link to 'Tarjetas bancarias - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Tarjetas bancarias - Banco Sabadell'",
+      "Find and click the link to 'Hipotecas - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Hipotecas - Banco Sabadell'",
+      "Find and click the link to 'Pr\u00e9stamos y cr\u00e9ditos - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Pr\u00e9stamos y cr\u00e9ditos - Banco Sabadell'",
+      "Find and click the link to 'Ahorro - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Ahorro - Banco Sabadell'",
+      "Find and click the link to 'Inversi\u00f3n - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Inversi\u00f3n - Banco Sabadell'",
+      "Find and click the link to 'Jubilaci\u00f3n - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Jubilaci\u00f3n - Banco Sabadell'",
+      "Find and click the link to 'Seguros - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Seguros - Banco Sabadell'",
+      "Find and click the link to 'Renting Coches - Banco Sabadell'",
+      "Wait for the page to load completely",
+      "Verify the page title contains 'Renting Coches - Banco Sabadell'"
+    ],
+    "expected_results": [
+      "All links in the path are working",
+      "Navigation completes successfully",
+      "Destination page 'Renting Coches - Banco Sabadell' loads correctly"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Outbound Links Test for Renting Coches - Banco Sabadell",
+    "description": "Verify all outbound links from Renting Coches - Banco Sabadell work correctly",
+    "steps": [
+      "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/",
+      "Identify all outbound links",
+      "Click on each link and verify it loads",
+      "Return to the original page after testing each link"
+    ],
+    "expected_results": [
+      "All outbound links are clickable",
+      "Destination pages load without errors",
+      "Navigation back to the original page works"
+    ]
+  }
+]

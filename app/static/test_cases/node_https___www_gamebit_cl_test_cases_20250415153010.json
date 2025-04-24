@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Accessibility Test for Unknown Page",
+    "description": "Verify that the page at https://www.gamebit.cl is accessible and loads correctly",
+    "steps": [
+      "Navigate directly to https://www.gamebit.cl",
+      "Wait for the page to load completely"
+    ],
+    "expected_results": [
+      "Page loads without errors",
+      "All elements are visible and properly rendered",
+      "Page title contains 'Unknown Page'"
+    ]
+  }
+]

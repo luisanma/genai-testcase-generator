@@ -1,0 +1,17 @@
+{
+  "id": 3,
+  "title": "Main Menu Navigation Test",
+  "description": "Verify that all main menu items navigate to the correct pages",
+  "steps": [
+    "Navigate to https://www.xeridia.com/servicios-inteligencia-artificial-big-data",
+    "Identify all main menu items",
+    "Click on each menu item one by one",
+    "Verify each destination page loads",
+    "Navigate back to the homepage after each verification"
+  ],
+  "expected_results": [
+    "All menu items are clickable",
+    "Destination pages load correctly",
+    "Navigation back to homepage works"
+  ]
+}

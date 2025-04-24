@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "title": "Links Test for Renting Coches - Banco Sabadell",
+  "description": "Verify that all important links on the page at https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/ work correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/renting-coches/",
+    "Identify all important navigation links",
+    "Click on each link one by one",
+    "Verify each destination page loads",
+    "Navigate back to the original page after each verification"
+  ],
+  "expected_results": [
+    "All links are clickable",
+    "Destination pages load without errors",
+    "Navigation back to the original page works"
+  ]
+}

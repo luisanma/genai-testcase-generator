@@ -1,0 +1,16 @@
+{
+  "id": 2,
+  "title": "Basic Navigation Path Test",
+  "description": "Verify that navigation between key pages works correctly",
+  "steps": [
+    "Navigate to https://www.gamebit.cl/",
+    "Find and click on the first link in the navigation menu",
+    "Wait for the new page to load",
+    "Navigate back to the homepage"
+  ],
+  "expected_results": [
+    "Navigation to new page is successful",
+    "Back navigation returns to the homepage",
+    "No errors occur during navigation"
+  ]
+}
