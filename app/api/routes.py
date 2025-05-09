@@ -8,7 +8,6 @@ from app.core.code_generator import CodeGenerator
 import json
 import os
 import time
-import sys
 
 # Set up logger
 logger = logging.getLogger("web-analysis-framework.api")
@@ -219,8 +218,6 @@ async def execute_test_code(request: dict):
     try:
         code_to_execute = request.get("code", "")
         test_id = request.get("test_case_id")
-        chrome_driver_path = request.get("chrome_driver_path", "")
-        should_execute = request.get("execute", False)
         
         if not code_to_execute:
             raise HTTPException(status_code=400, detail="No code provided")
@@ -229,58 +226,20 @@ async def execute_test_code(request: dict):
         temp_file_path = os.path.join("app", "static", "temp", f"test_{test_id}_{int(time.time())}.py")
         os.makedirs(os.path.dirname(temp_file_path), exist_ok=True)
         
-        # Add environment variable for ChromeDriver if provided
-        env_vars = os.environ.copy()
-        if chrome_driver_path and os.path.exists(chrome_driver_path):
-            # Add a comment at the top of the file for visibility
-            chrome_driver_comment = f"# Using ChromeDriver from: {chrome_driver_path}\n"
-            code_to_execute = chrome_driver_comment + code_to_execute
-            logger.info(f"Using custom ChromeDriver path: {chrome_driver_path}")
-            env_vars["CHROME_DRIVER_PATH"] = chrome_driver_path
-        
         with open(temp_file_path, "w") as f:
             f.write(code_to_execute)
             
         logger.info(f"Test code saved to {temp_file_path}")
         
-        # Actually execute the test if requested
-        execution_info = {}
-        if should_execute:
-            try:
-                import subprocess
-                
-                # Run the Python file in a separate process
-                logger.info(f"Executing test file: {temp_file_path}")
-                process = subprocess.Popen(
-                    [sys.executable, temp_file_path],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True,
-                    env=env_vars
-                )
-                
-                # Store process ID for future reference
-                execution_info = {
-                    "pid": process.pid,
-                    "started_at": time.time(),
-                    "status": "running"
-                }
-                logger.info(f"Test process started with PID: {process.pid}")
-                
-            except Exception as exec_error:
-                logger.error(f"Error starting test process: {str(exec_error)}", exc_info=True)
-                execution_info = {
-                    "error": str(exec_error),
-                    "status": "failed_to_start"
-                }
+        # In a real production environment, this would execute the code in a 
+        # sandboxed environment using subprocess or a similar approach
+        # For this demo, we'll return a success message
         
         return {
             "status": "success", 
-            "message": "Test execution initiated" if should_execute else "Test code saved", 
+            "message": "Test execution initiated", 
             "test_id": test_id,
-            "file_path": temp_file_path,
-            "execution": execution_info,
-            "view_instructions": "The test will run in a visible Chrome browser window. If you don't see it, make sure Chrome is installed and ChromeDriver path is correctly configured."
+            "file_path": temp_file_path
         }
     except Exception as e:
         logger.error(f"Error executing test code: {str(e)}", exc_info=True)

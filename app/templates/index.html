@@ -369,17 +369,6 @@
                             <p>Below is the generated Selenium Python code for the selected test case:</p>
                             <pre class="code-block"><code id="code-content"></code></pre>
                             <div class="mt-3">
-                                <div class="mb-3">
-                                    <label for="chromedriver-path" class="form-label">Ruta de ChromeDriver.exe (opcional):</label>
-                                    <input type="text" class="form-control" id="chromedriver-path" placeholder="Ej: C:\WebDrivers\chromedriver.exe">
-                                    <div class="form-text">Deja vacío para usar ChromeDriver desde el PATH del sistema.</div>
-                                </div>
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="execute-visible" checked>
-                                    <label class="form-check-label" for="execute-visible">
-                                        Ejecutar en modo visible (mostrando navegador)
-                                    </label>
-                                </div>
                                 <button class="btn btn-primary" id="execute-code">
                                     <i class="fas fa-play me-2"></i> Execute Test
                                 </button>
@@ -726,9 +715,7 @@
                     },
                     body: JSON.stringify({
                         code: window.generatedCodeData.code,
-                        test_case_id: window.generatedCodeData.test_case_id,
-                        chrome_driver_path: document.getElementById('chromedriver-path').value.trim(),
-                        execute: document.getElementById('execute-visible').checked
+                        test_case_id: window.generatedCodeData.test_case_id
                     })
                 })
                 .then(response => {
@@ -745,15 +732,6 @@
                     
                     // Add log entry
                     addLogEntry('Test execution started', 'log');
-                    
-                    // Display additional info if provided
-                    if (data.view_instructions) {
-                        addLogEntry(data.view_instructions, 'info');
-                    }
-                    
-                    if (data.execution && data.execution.pid) {
-                        addLogEntry(`Test process started with PID: ${data.execution.pid}`, 'info');
-                    }
                     
                     // Start polling for status
                     startStatusPolling(data.test_id);

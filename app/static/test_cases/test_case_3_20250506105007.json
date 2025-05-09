@@ -1,0 +1,16 @@
+{
+  "id": 3,
+  "title": "Contact Form Validation Test",
+  "description": "Verify that the contact form validates inputs correctly",
+  "steps": [
+    "Navigate to https://exceltic.com/",
+    "Navigate to the contact page",
+    "Submit the form without filling any fields",
+    "Observe validation errors"
+  ],
+  "expected_results": [
+    "Form submission is prevented",
+    "Validation errors are displayed for required fields",
+    "Error messages are clear and descriptive"
+  ]
+}

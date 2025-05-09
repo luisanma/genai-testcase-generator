@@ -1,0 +1,16 @@
+{
+  "id": 4,
+  "title": "Form Submission Test",
+  "description": "Verify that forms can be submitted correctly",
+  "steps": [
+    "Navigate to https://www.bancsabadell.com/bsnacional/es/particulares/",
+    "Navigate to a page with a form",
+    "Fill in all required fields with valid data",
+    "Submit the form"
+  ],
+  "expected_results": [
+    "Form accepts the input data",
+    "Submission is successful",
+    "Appropriate confirmation or next step is displayed"
+  ]
+}

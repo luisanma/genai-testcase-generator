@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Homepage Accessibility Test",
+    "description": "Verify that the homepage at https://exceltic.com/ is accessible and loads correctly",
+    "steps": [
+      "Navigate to https://exceltic.com/",
+      "Wait for the page to load completely"
+    ],
+    "expected_results": [
+      "Page loads without errors",
+      "All elements are visible and properly rendered"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Basic Navigation Path Test",
+    "description": "Verify that navigation between key pages works correctly",
+    "steps": [
+      "Navigate to https://exceltic.com/",
+      "Find and click on the first link in the navigation menu",
+      "Wait for the new page to load",
+      "Navigate back to the homepage"
+    ],
+    "expected_results": [
+      "Navigation to new page is successful",
+      "Back navigation returns to the homepage",
+      "No errors occur during navigation"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Contact Form Validation Test",
+    "description": "Verify that the contact form validates inputs correctly",
+    "steps": [
+      "Navigate to https://exceltic.com/",
+      "Navigate to the contact page",
+      "Submit the form without filling any fields",
+      "Observe validation errors"
+    ],
+    "expected_results": [
+      "Form submission is prevented",
+      "Validation errors are displayed for required fields",
+      "Error messages are clear and descriptive"
+    ]
+  }
+]

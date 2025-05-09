@@ -1,0 +1,36 @@
+# MongoDB configuration
+mongodb:
+  uri: "mongodb://localhost:27017/"
+  database: "web_analysis_db"
+
+# Application configuration
+application:
+  debug: true
+  host: "0.0.0.0"
+  port: 8000
+
+# Chrome driver configuration
+chrome:
+  driver_path: "C:\\projects\\testcase\\chromedriver.exe"
+
+# Ollama API configuration
+ollama:
+  api_url: "http://localhost:11434/api/generate"
+  model: "llama3.1:8b"
+  max_tokens: 2048
+  temperature: 0.7
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# Security configuration
+security:
+  secret_key: "your-secret-key-here"
+  token_expire_minutes: 60
+  
+# Storage configuration
+storage:
+  temp_files_path: "./app/static/temp"
+  output_files_path: "./app/static/output" 

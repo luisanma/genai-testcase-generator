@@ -121,26 +121,6 @@ Generate only the Python code without any additional explanation. Make sure the 
         # Add title comment
         title_comment = f"# Test: {test_case.get('title', 'Unknown Test')}\n"
         
-        # Replace headless mode with visible mode for Chrome
-        code = re.sub(
-            r"options\.add_argument\('headless'\)|options\.add_argument\(\"headless\"\)|options\.add_argument\('--headless'\)|options\.add_argument\(\"--headless\"\)", 
-            "# Running in visible mode for test visualization", 
-            code
-        )
-        
-        # Add code to use ChromeDriver from specified path if available
-        code = re.sub(
-            r"driver = webdriver\.Chrome\(options=options\)",
-            "# Use ChromeDriver from specified path if available\n"
-            "from selenium.webdriver.chrome.service import Service\n"
-            "if 'chrome_driver_path' in locals() and chrome_driver_path:\n"
-            "    service = Service(executable_path=chrome_driver_path)\n"
-            "    driver = webdriver.Chrome(service=service, options=options)\n"
-            "else:\n"
-            "    driver = webdriver.Chrome(options=options)",
-            code
-        )
-        
         return title_comment + code
     
     def _add_execution_wrapper(self, code, test_case):
@@ -155,7 +135,6 @@ import queue
 import time
 import traceback
 import sys
-import os
 
 # Create a queue for logging
 log_queue = queue.Queue()
@@ -166,12 +145,6 @@ def run_test():
         # Redirect stdout to capture logs
         original_stdout = sys.stdout
         sys.stdout = LogRedirector(log_queue)
-        
-        # Set ChromeDriver executable path if provided in environment or use default location
-        chrome_driver_path = os.environ.get('CHROME_DRIVER_PATH', None)
-        if chrome_driver_path and os.path.exists(chrome_driver_path):
-            log_queue.put(("LOG", f"Using ChromeDriver at: {{chrome_driver_path}}"))
-            # This will be used in the test code if service parameter is set
         
         # Execute the test code
 {self._indent_code(code, 8)}
